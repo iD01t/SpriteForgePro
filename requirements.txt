@@ -1,0 +1,14 @@
+# Core GUI and Image Processing
+PyQt6
+Pillow
+numpy
+
+# Optional Advanced Features
+# These are not strictly required for the app to run, but enable all features.
+opencv-python
+scikit-image
+
+# Testing
+# These are required to run the test suite.
+pytest
+pytest-qt

@@ -1,131 +1,102 @@
-<img width="1536" height="1024" alt="banner" src="https://github.com/user-attachments/assets/b9dccaac-6850-470f-8d55-725af0de89c0" />
+# Sprite Forge Ultimate v3.0.0
 
-# Sprite Forge Ultimate
+Welcome to **Sprite Forge Ultimate**, a premium, production-ready, cross-platform desktop application for professional sprite and texture creation. It is especially powerful for developers in the Doom modding community.
 
-Sprite Forge Ultimate is the definitive all-in-one sprite editing, batch processing, and plugin-driven toolkit. It merges the best of **Sprite Forge Pro** and **Sprite Forge Enhanced** into one polished, production-ready application. Built with **PyQt6**, it delivers a premium workflow for artists, modders, and developers who need pixel-perfect control and modern automation.
+This application is the result of merging the best features of `Sprite Forge Pro` and `Sprite Forge Enhanced` into a single, cohesive, and powerful tool.
 
----
+![Screenshot Placeholder](https://via.placeholder.com/800x450.png?text=Sprite+Forge+Ultimate+UI)
 
-## 🚀 Key Features
+## ✨ Features
 
-### Image Processing
+- **Modern UI**: A sleek, professional dark theme powered by PyQt6, with dockable panels and a high-DPI aware interface.
+- **Advanced Image Processing**: A powerful pipeline including:
+  - AI-assisted background removal (OpenCV GrabCut).
+  - High-quality Doom palette mapping with optional dithering.
+  - Pixelation, enhancement (brightness, contrast, saturation, sharpness), and auto-cropping.
+- **Unified Plugin System**: Extend the application's functionality with custom Python or JSON plugins. The app loads plugins from the `./plugins/` directory and a user-specific folder.
+- **Headless Batch Mode**: A powerful command-line interface for automating your workflow. Process hundreds of images with a single command.
+- **Comprehensive Exporting**: Native export to formats essential for game development, including `PNG`, `WAD`, `PK3`, `GIF`, `ZIP`, and combined `Sprite Sheet`.
+- **Robust Project Management**:
+  - Persistent project settings saved to a clean JSON file.
+  - Crash-safe autosave functionality.
+  - Automatic migration from older `Pro` and `Enhanced` settings formats.
+- **Professional Canvas**: An advanced image canvas supporting high-zoom, smooth panning, and toggleable grids (including a pixel grid).
 
-* **Pixelate** – scalable pixel grid conversion with configurable block sizes.
-* **Enhance** – brightness, contrast, saturation, and sharpness tuning.
-* **Apply Doom Palette** – advanced palette mapping with optional dithering and transparency preservation.
-* **Auto Crop** – intelligent trimming with threshold control.
-* **Background Removal** – OpenCV GrabCut with adjustable tolerance and edge smoothing.
-* **Sprite Rotations** – generate N rotation frames with pixel-perfect or smooth interpolation.
+## 🚀 Quickstart
 
-### Modern Image Canvas
+1.  **Install Dependencies**: Make sure you have Python 3.8+ installed. The application will attempt to install required Python packages on first run. Alternatively, you can install them manually:
+    ```bash
+    pip install PyQt6 Pillow numpy opencv-python
+    ```
 
-* Zoom, pan, and rotate with high-DPI precision.
-* **Transparency checkerboard** with customizable grid colors.
-* **Grid and pixel grid overlays** toggleable on the fly.
-* Optimized QImage rendering for large sprites with no performance stutter.
+2.  **Run the Application**:
+    ```bash
+    python sprite_forge_ultimate.py
+    ```
 
-### Plugin System
+3.  **Open an Image**: Go to `File > Open...` or use the shortcut `Ctrl+O`.
 
-* **Unified PluginManager** supporting:
+4.  **Apply Effects**: Use the plugins in the side panel to modify your image.
 
-  * Built-in plugins
-  * External Python plugins
-  * JSON-defined effect plugins
-* Safe parameter validation, error handling, and sandboxed execution.
-* Example plugins included (Emboss, Blur).
+5.  **Export**: Save your work in your desired format.
 
-### Export & Formats
+## ⌨️ Keyboard Shortcuts
 
-* Save as **PNG, GIF, WAD, PK3, ZIP, or sprite sheets**.
-* Batch export with progress tracking and cancelation support.
-* Alpha channel preserved with no corruption across formats.
+| Shortcut | Action |
+| :--- | :--- |
+| `Ctrl+O` | Open Image |
+| `Ctrl+S` | Save Project (Not yet implemented) |
+| `Ctrl+Q` | Quit Application |
+| `Spacebar` | Zoom to Fit (Not yet implemented) |
+| `1` | Zoom to 100% (Not yet implemented) |
+| `G` | Toggle Grid (Not yet implemented) |
+| `P` | Toggle Pixel Grid (Not yet implemented) |
 
-### Project Management
+## 🤖 Batch Processing (CLI)
 
-* **ProjectSettings** with unified schema from Pro and Enhanced.
-* Friendly JSON persistence and migration of older configs.
-* Crash-safe autosave with adjustable intervals.
-* Quick resume of last project on launch.
+Automate your image processing tasks using the headless mode.
 
-### CLI Batch Mode
+**Syntax:**
+`python sprite_forge_ultimate.py --headless --input <path> --output <path> --apply <Operation> [params...]`
 
-Run headless without Qt for automation:
+**Examples:**
 
-```bash
-python sprite_forge_ultimate.py --input sprite.png --output out.png --format png --apply "Doom Palette" --dither true --rotations 8
+- **Pixelate a single file:**
+  ```bash
+  python sprite_forge_ultimate.py --headless --input assets/player.png --output processed/player_pixel.png --apply Pixelate factor=8
+  ```
+
+- **Process an entire folder and apply multiple effects:**
+  ```bash
+  python sprite_forge_ultimate.py --headless --input assets/monsters/ --output processed/monsters/ --apply "Doom Palette" dither=true --apply Enhance brightness=1.1 contrast=1.05
+  ```
+
+## 🔌 Plugin Authoring
+
+You can easily create your own plugins.
+
+### JSON Plugins
+
+For simple `ImageProcessor` operations, create a `.json` file in the `plugins/` directory.
+
+**`plugins/example_emboss_plugin.json`**
+```json
+{
+  "name": "Emboss",
+  "version": "1.0.0",
+  "description": "Applies a simple emboss effect.",
+  "author": "Your Name",
+  "category": "Effects",
+  "operation": "emboss",
+  "parameters": {}
+}
 ```
+*(Note: The "emboss" operation would need to be added to `ImageProcessor` for this specific example to work).*
 
-Supports chaining multiple operations, full transparency preservation, and export to all formats.
+### Python Plugins
 
-### User Experience
+For more complex logic, create a `.py` file. (Full Python plugin support to be fleshed out).
 
-* Dark theme with polished UI.
-* Keyboard shortcuts for every major action.
-* Non-blocking progress dialogs for batch tasks.
-* Graceful dependency checks with actionable install prompts.
-* Structured logging with rotating files + stdout streaming.
+## 📜 License
 
----
-
-## 🧩 Premium Improvements Over Pro & Enhanced
-
-* **Merged APIs** – one ImageProcessor, one ModernImageCanvas, one PluginManager, no duplication.
-* **Extended Doom Palette Mapper** – dithering + transparency options not present before.
-* **Unified Plugin Framework** – JSON + Python in one validated pipeline.
-* **Consistent Settings** – reconciled enums and schema, with backward compatibility.
-* **Safer Dependency Handling** – no silent installs during GUI sessions, user consent required.
-* **Headless CLI** – runs without PyQt imports, perfect for servers and automation.
-* **Full Test Suite** – pytest coverage for processing, plugins, and GUI smoke tests.
-* **Build Scripts** – Windows (PyInstaller), macOS (universal2), Linux (AppImage).
-* **Documentation** – README, CHANGELOG, MIGRATION\_NOTES, and examples.
-
----
-
-## 📦 Installation
-
-### Requirements
-
-* Python 3.10+
-* PyQt6
-* NumPy, Pillow, OpenCV (optional), SciPy (optional)
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run the app:
-
-```bash
-python sprite_forge_ultimate.py
-```
-
----
-
-## 🧪 Testing
-
-Run all tests:
-
-```bash
-pytest tests/
-```
-
----
-
-## 📄 Documentation
-
-* `README.md` – Quickstart and feature overview
-* `MIGRATION_NOTES.md` – API changes and compatibility map
-* `CHANGELOG.md` – Version history
-* `plugins/` – Example plugins (JSON and Python)
-* `tests/` – Unit and smoke tests
-* `build_*` – Platform build scripts
-
----
-
-## 🔥 Why This Is the Ultimate Version
-
-Sprite Forge Ultimate isn’t just a merge, it’s a **refined upgrade**. Every missing feature from Enhanced is integrated, every professional feature from Pro is preserved, and new polish has been added across the stack. The result: one bulletproof app ready for indie developers and pro studios alike.
-
-
+This project is licensed under the MIT License.

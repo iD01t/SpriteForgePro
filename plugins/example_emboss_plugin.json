@@ -1,0 +1,9 @@
+{
+  "name": "JSON Emboss Example",
+  "version": "1.0.0",
+  "description": "Applies a simple emboss effect from a JSON plugin.",
+  "author": "Your Name",
+  "category": "Examples",
+  "operation": "emboss",
+  "parameters": {}
+}
